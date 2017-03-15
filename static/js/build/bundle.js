@@ -68,17 +68,25 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-alert("Yup...test worked")
+"use strict";
+var greetings = function greetings(text, person) {
+    return text + ", " + person + ". I read you but I'm sorry, I'm afraid I can't do that.";
+};
 
+/* harmony default export */ __webpack_exports__["a"] = greetings;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(0)
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__robots__ = __webpack_require__(0);
 
+
+document.write(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__robots__["a" /* default */])("Affirmative", "Dave"));
 
 /***/ })
 /******/ ]);
