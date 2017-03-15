@@ -1,0 +1,12 @@
+{
+  "name": "react_redux_starter",
+  "version": "1.0.0",
+  "description": "A starter package that gets you up and going with a solid base for a react, redux app. Includes fun stuff like webpack bundling and testing!",
+  "main": "index.js",
+  "repository": "https://github.com/guptamo/react_redux_starter",
+  "author": "guptamo <mo@mohitgupta.ca>",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^2.2.1"
+  }
+}
