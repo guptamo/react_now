@@ -1,15 +1,23 @@
 module.exports = {
-    entry: './static/js/src',
+    entry: './src/js',
     output: {
-        path: './static/js/build',
+        path: './static/js/',
         filename: 'bundle.js'
     },
     module: {
         rules: [
             {
                 test: /\.js/,
-                loader: 'babel-loader',
-                include: __dirname + '/static/js/src'
+                use: ['babel-loader'],
+                include: __dirname + '/src'
+            },
+            {
+                test: /\.css/,
+                use: [
+                    {loader: "style-loader"},
+                    {loader: "css-loader"}
+                ],
+                include: __dirname +  '/src'
             }
         ]
     }
