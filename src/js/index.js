@@ -1,9 +1,17 @@
+import ReactDOM from 'react-dom'
+import React from 'react'
+
 import styles from '../styles/app.css'
 
-let element = `
-    <div class=${styles.element}>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur laudantium recusandae itaque libero velit minus ex reiciendis veniam. Eligendi modi sint delectus beatae nemo provident ratione maiores, voluptatibus a tempore!</p>
-    </div>
-`
+const App = () => {
+    const working = false
 
-document.write(element)
+    return (
+        <div className={styles.test}>
+            <h2>This looks about right {working ? '...right?' : '...psyche!'}</h2>
+            <p>...but if the background to this div isn't blue something might be wrong with the css modules configuration.</p>
+        </div>
+    )
+}
+
+ReactDOM.render(<App />, document.querySelector('.container'))
