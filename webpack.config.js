@@ -1,12 +1,11 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var LiveReloadPlugin = require('webpack-livereload-plugin')
 var path = require('path')
 
 const PUBLIC_PATH = path.join(__dirname, 'static')
 const SOURCE_PATH = path.join(__dirname, 'src')
 
 module.exports = {
-    entry: './src/js',
+    entry: path.join(SOURCE_PATH, 'js'),
     output: {
         path: PUBLIC_PATH,
         publicPath: PUBLIC_PATH,
@@ -23,7 +22,7 @@ module.exports = {
                 test: /\.css/,
                 use: ExtractTextPlugin.extract([{
                         loader: "css-loader",
-                        options: {
+                        query: {
                             modules: true,
                             sourceMap: true,
                             localIdentName: "[name]__[local]___[hash:base64:5]"
@@ -35,7 +34,6 @@ module.exports = {
     },
     devtool: "cheap-module-source-map",
     plugins: [
-        new ExtractTextPlugin('css/bundle.css'),
-        new LiveReloadPlugin({appendScriptTag: true})
+        new ExtractTextPlugin('css/bundle.css')
     ]
 }
