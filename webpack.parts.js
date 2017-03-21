@@ -1,6 +1,40 @@
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const BabiliPlugin = require('babili-webpack-plugin')
 
+const cssModulesConfig = {
+    modules: true,
+    localIdentName: "[name]__[local]___[hash:base64:5]",
+}
+
+exports.sourceMap = function({type}){
+    return {
+        devtool: type,
+    }
+}
+
+exports.minifyJS = function() {
+    return {
+        plugins: [
+            new BabiliPlugin(),
+        ],
+    }
+}
+
+exports.cssLoaders = [
+    {
+        loader: 'css-loader',
+        options: cssModulesConfig,
+    },
+    {
+        loader: 'postcss-loader',
+        options: {
+            plugins: () => ([
+                require('autoprefixer')
+            ])
+        }
+    },
+]
 
 exports.devServer = function({host, port} = {}){
     return {

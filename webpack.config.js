@@ -5,31 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const parts = require('./webpack.parts')
 
-
 const PATHS = {
     build: path.join(__dirname, 'build'),
     source: path.join(__dirname, 'source'),
 }
-
-const cssModulesConfig = {
-    modules: true,
-    localIdentName: "[name]__[local]___[hash:base64:5]",
-}
-
-const cssLoaders = [
-    {
-        loader: 'css-loader',
-        options: cssModulesConfig,
-    },
-    {
-        loader: 'postcss-loader',
-        options: {
-            plugins: () => ([
-                require('autoprefixer')
-            ])
-        }
-    },
-]
 
 const commonConfig = {
     entry: PATHS.source,
@@ -46,7 +25,6 @@ const commonConfig = {
             },
         ]
     },
-    devtool: "cheap-module-source-map",
     plugins: [
         new HtmlWebpackPlugin({
             title: "React Now Base",
@@ -63,8 +41,9 @@ module.exports = function(env) {
             parts.extractCSS({
                 include: PATHS.source,
                 output: 'styles.css',
-                loaders: cssLoaders
-            })
+                loaders: parts.cssLoaders
+            }),
+            parts.minifyJS()
         )
     }
 
@@ -72,9 +51,9 @@ module.exports = function(env) {
         commonConfig,
         parts.loadCSS({
             include: PATHS.source,
-            loaders: cssLoaders,
+            loaders: parts.cssLoaders,
         }),
-        parts.devServer
+        parts.devServer,
+        parts.sourceMap({type: "cheap-module-source-map"})
     )
-
 }
