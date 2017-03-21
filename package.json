@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "A starter package that gets you up and going with a solid base for a react, redux app. Includes fun stuff like webpack bundling and testing!",
     "main": "index.js",
-    "repository": "https://github.com/guptamo/react_redux_starter",
+    "repository": "https://github.com/guptamo/react_now",
     "author": "guptamo <mo@mohitgupta.ca>",
     "license": "MIT",
     "devDependencies": {
@@ -13,12 +13,16 @@
         "babel-preset-react": "^6.23.0",
         "css-loader": "^0.27.3",
         "extract-text-webpack-plugin": "^2.1.0",
+        "html-webpack-plugin": "^2.28.0",
+        "postcss-loader": "^1.3.3",
+        "style-loader": "^0.15.0",
         "webpack": "^2.2.1",
-        "webpack-livereload-plugin": "^0.10.0"
+        "webpack-dev-server": "^2.4.2",
+        "webpack-merge": "^4.1.0"
     },
     "scripts": {
-        "start": "webpack-dev-server",
-        "build": "webpack -p"
+        "start": "webpack-dev-server --env development",
+        "build": "webpack --env production"
     },
     "dependencies": {
         "react": "^15.4.2",

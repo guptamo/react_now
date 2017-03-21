@@ -1,39 +1,61 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const PUBLIC_PATH = path.join(__dirname, 'static')
-const SOURCE_PATH = path.join(__dirname, 'src')
+const parts = require('./webpack.parts')
 
-module.exports = {
-    entry: path.join(SOURCE_PATH, 'js'),
+
+const PATHS = {
+    build: path.join(__dirname, 'build'),
+    source: path.join(__dirname, 'source'),
+}
+
+const commonConfig = {
+    entry: PATHS.source,
     output: {
-        path: PUBLIC_PATH,
-        publicPath: PUBLIC_PATH,
-        filename: 'js/bundle.js'
+        path: PATHS.build,
+        filename: '[name].js'
     },
     module: {
         rules: [
             {
                 test: /\.js/,
                 use: ['babel-loader'],
-                include: SOURCE_PATH
+                include: PATHS.source,
             },
-            {
-                test: /\.css/,
-                use: ExtractTextPlugin.extract([{
-                        loader: "css-loader",
-                        query: {
-                            modules: true,
-                            sourceMap: true,
-                            localIdentName: "[name]__[local]___[hash:base64:5]"
-                        }
-                    }]),
-                include: SOURCE_PATH
-            }
+            // {
+            //     test: /\.css/,
+            //     use: ExtractTextPlugin.extract([{
+            //             loader: "css-loader",
+            //             query: {
+            //                 modules: true,
+            //                 sourceMap: true,
+            //                 localIdentName: "[name]__[local]___[hash:base64:5]"
+            //             }
+            //         }]),
+            //     include: SOURCE_PATH
+            // }
         ]
     },
     devtool: "cheap-module-source-map",
     plugins: [
-        new ExtractTextPlugin('css/bundle.css')
+        // new ExtractTextPlugin('css/bundle.css'),
+        new HtmlWebpackPlugin({
+            title: "React Now Base",
+            template: "source/template.ejs"
+        }),
     ]
+}
+
+module.exports = function(env) {
+    console.log('env: ', env)
+
+    if (env === "production"){
+        return merge(commonConfig, parts.loadCSS(PATHS.source))
+    }
+
+    return merge(commonConfig, parts.loadCSS(PATHS.source), parts.devServer)
+
 }
