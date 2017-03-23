@@ -49,7 +49,12 @@ module.exports = function(env) {
                 output: 'styles.css',
                 loaders: parts.cssLoaders
             }),
-            parts.minifyJS()
+            parts.minifyJS(),
+            parts.setFreeVariable({
+                key: "process.env.NODE_ENV",
+                value: "production",
+            })
+
         )
     }
 
