@@ -20,8 +20,14 @@ const commonConfig = {
         rules: [
             {
                 test: /\.js/,
-                use: ['babel-loader'],
+                use: {
+                    loader: 'babel-loader',
+                    query: {
+                        presets: [["es2015", {"modules": false}], "react"],
+                    },
+                },
                 include: PATHS.source,
+                exclude: path.join(__dirname, 'node_modules'),
             },
         ]
     },

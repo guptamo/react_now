@@ -31,7 +31,7 @@
     "scripts": {
         "start": "webpack-dev-server --env development",
         "build": "webpack --env production",
-        "test": "mocha --watch test/.setup.js test/**/*_test.js"
+        "test": "mocha test/.setup.js test/**/*_test.js --watch --recursive"
     },
     "dependencies": {
         "react": "^15.4.2",
