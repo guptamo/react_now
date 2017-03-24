@@ -40,19 +40,6 @@ const commonConfig = {
 }
 
 module.exports = function(env) {
-    const devConfig = merge(
-        commonConfig,
-        parts.loadCSS({
-            include: PATHS.source,
-            loaders: parts.cssLoaders,
-        }),
-        parts.devServer,
-        parts.sourceMap({type: "cheap-module-source-map"}),
-        parts.autoBrowserLaunch({browser: "Chrome"})
-    )
-
-    console.log(devConfig)
-
     if (env === "production"){
         return merge(
             commonConfig,
@@ -70,5 +57,14 @@ module.exports = function(env) {
         )
     }
 
-    return devConfig
+    return merge(
+        commonConfig,
+        parts.loadCSS({
+            include: PATHS.source,
+            loaders: parts.cssLoaders,
+        }),
+        parts.devServer,
+        parts.sourceMap({type: "cheap-module-source-map"}),
+        parts.autoBrowserLaunch({browser: "Chrome"})
+    )
 }
