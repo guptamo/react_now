@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlPlugin = require('html-webpack-plugin')
 
 const parts = require('./webpack.parts')
 
@@ -22,7 +22,7 @@ const commonConfig = {
                 test: /\.js/,
                 use: {
                     loader: 'babel-loader',
-                    query: {
+                    options: {
                         presets: [["es2015", {"modules": false}], "react"],
                     },
                 },
@@ -32,7 +32,7 @@ const commonConfig = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
+        new HtmlPlugin({
             title: "React Now Base",
             template: "source/template.ejs"
         }),
@@ -40,6 +40,18 @@ const commonConfig = {
 }
 
 module.exports = function(env) {
+    const devConfig = merge(
+        commonConfig,
+        parts.loadCSS({
+            include: PATHS.source,
+            loaders: parts.cssLoaders,
+        }),
+        parts.devServer,
+        parts.sourceMap({type: "cheap-module-source-map"}),
+        parts.autoBrowserLaunch({browser: "Chrome"})
+    )
+
+    console.log(devConfig)
 
     if (env === "production"){
         return merge(
@@ -58,13 +70,5 @@ module.exports = function(env) {
         )
     }
 
-    return merge(
-        commonConfig,
-        parts.loadCSS({
-            include: PATHS.source,
-            loaders: parts.cssLoaders,
-        }),
-        parts.devServer,
-        parts.sourceMap({type: "cheap-module-source-map"})
-    )
+    return devConfig
 }
