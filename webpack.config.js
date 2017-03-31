@@ -29,6 +29,11 @@ const commonConfig = {
                 include: PATHS.source,
                 exclude: path.join(__dirname, 'node_modules'),
             },
+            {
+                test: /\.(jpg|svg|png)$/,
+                loader: 'file-loader',
+                options: {name: './images/[name].[ext]'}
+            },
         ]
     },
     plugins: [
