@@ -58,7 +58,6 @@ module.exports = function(env) {
                 key: "process.env.NODE_ENV",
                 value: "production",
             })
-
         )
     }
 
@@ -69,7 +68,6 @@ module.exports = function(env) {
             loaders: parts.cssLoaders,
         }),
         parts.devServer,
-        parts.sourceMap({type: "cheap-module-source-map"}),
-        parts.autoBrowserLaunch({browser: "Chrome"})
+        parts.sourceMap({type: "cheap-module-source-map"})
     )
 }
